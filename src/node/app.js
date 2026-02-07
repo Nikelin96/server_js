@@ -71,16 +71,15 @@ function setupApplication(repository) {
 }
 
 const getApplication = (mockRepository) => {
-  let repository;
   if (mockRepository) {
-    repository = mockRepository;
-  } else {
-    const getDbClient = require("./postgresDbClient");
-    const getRepository = require("./postgresRepository");
-
-    let client = getDbClient();
-    repository = getRepository(client);
+    return setupApplication(mockRepository);
   }
+
+  const getDbClient = require("./postgresDbClient");
+  const getRepository = require("./postgresRepository");
+
+  let client = getDbClient();
+  const repository = getRepository(client);
 
   return setupApplication(repository);
 };
